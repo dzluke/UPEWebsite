@@ -4,6 +4,7 @@ from django.db import models
 from django.core.exceptions import ValidationError
 
 class Event(models.Model):
+    name = models.TextField(u'Name of event', help_text='Name', blank=True, null=True)
     day = models.DateField(u'Day of the event', help_text=u'Day of the event')
     start_time = models.TimeField(u'Starting time', help_text=u'Starting time')
     end_time = models.TimeField(u'Final time', help_text=u'Final time')
@@ -15,7 +16,7 @@ class Event(models.Model):
 
     def get_absolute_url(self):
         url = reverse('admin:%s_%s_change' % (self._meta.app_label, self._meta.model_name), args=[self.id])
-        return u'<a href="%s">%s</a>' % (url, str(self.start_time))
+        return u'<a href="%s">%s</a>' % (url, str(self.name)) #This is where you put the name
 
     def clean(self):
         if self.end_time <= self.start_time:
