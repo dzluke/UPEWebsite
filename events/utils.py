@@ -1,5 +1,6 @@
 from calendar import HTMLCalendar
 from datetime import datetime as dtime, date, time
+from .models import TYPE_COLORS
 import datetime
 from .models import Event
 
@@ -40,7 +41,14 @@ class EventCalendar(HTMLCalendar):
 
         v = []
         a = v.append
-        a('<table border="0" cellpadding="0" cellspacing="0" class="month">')
+        # Create legend
+        color_table = "<span> Events: &nbsp <span> "
+        for type in TYPE_COLORS.keys():
+            color_table += "<span style = 'color : " + str(TYPE_COLORS[type]) + "'>" + type + " &nbsp </span>"
+        color_table += "<br>"
+        a(str(color_table))
+        # Create calendar
+        a('<br> <table border="0" cellpadding="0" cellspacing="0" class="month">')
         a('\n')
         a(self.formatmonthname(theyear, themonth, withyear=withyear))
         a('\n')

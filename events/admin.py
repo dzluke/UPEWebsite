@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 from django.contrib import admin
 from .models import Event
+from django.forms import widgets
 import datetime
 import calendar
 from django.urls import reverse
@@ -12,6 +13,7 @@ from .utils import EventCalendar
 # Register your models here.
 
 class EventAdmin(admin.ModelAdmin):
+    #formfield_overrides = {models.TimeField :{'widget': widgets.TimeInput(format='%I:%M %p')}}
     list_display = ['day', 'start_time', 'end_time', 'notes']
     change_list_template = 'admin/events/change_list.html'
 
